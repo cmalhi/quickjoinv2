@@ -2,6 +2,7 @@ var cors = require('cors');
 var router = require('./router')
 var express = require('express');
 var mongoose = require('mongoose');
+var sessions = require('express-session');
 var bodyParser = require('body-parser');
 // var Appointment = require('./model/appointments');
 //and create our instances
@@ -16,6 +17,12 @@ app.use(cors());
 //JSON data in the request body
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+//set up sessions
+app.use(sessions({
+  resave: false,
+  saveUninitialized: true,
+  secret: 'meow'
+}));
 //To prevent errors from Cross Origin Resource Sharing, we will set 
 //our headers to allow CORS with middleware like so:
 app.use(function(req, res, next) {
@@ -33,7 +40,7 @@ router.get('/', function(req, res) {
   console.log('Api initialized');
 });
 //Use our router configuration when we call /api
-app.use('/api', router);
+app.use('/', router);
 //starts the server and listens for requests
 app.listen(port, host, function() {
   console.log(`Connected to port ${port}`);
