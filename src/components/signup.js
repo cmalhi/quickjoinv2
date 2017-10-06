@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from './login';
-// import axios from 'axios';
+import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 
 
@@ -16,14 +16,14 @@ class Signup extends React.Component {
   }
 
   handlePost(userObj) {
-    // axios({
-    //   method: 'POST',
-    //   url: '/handlesignup',
-    //   data: userObj,
-    // })
-    // .then((res) => {
-    //   console.log('ran post request for submitting signup info on front end', res.data);
-    // })
+    axios({
+      method: 'POST',
+      url: '/api/handlesignup',
+      data: userObj,
+    })
+    .then((res) => {
+      console.log('ran post request for submitting signup info on front end', res.data);
+    })
   }
 
   handleSubmit(e) {

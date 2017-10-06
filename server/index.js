@@ -40,7 +40,7 @@ router.get('/', function(req, res) {
   console.log('Api initialized');
 });
 //Use our router configuration when we call /api
-app.use('/', router);
+app.use('/api', router);
 //starts the server and listens for requests
 app.listen(port, host, function() {
   console.log(`Connected to port ${port}`);

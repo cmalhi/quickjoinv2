@@ -35,6 +35,10 @@ exports.login = (req, res) => {
   });
 }
 
+getUser = (username, callback) => {
+  db.users.findOne({username}, callback)
+}
+
 badLogin = (req, res) => {
   console.log('bad Login');
   res.send('Login failed');
@@ -78,10 +82,6 @@ exports.signup = (req, res) => {
       })
     }
   });
-}
-
-getUser = (username, callback) => {
-  db.users.findOne({username}, callback)
 }
 
 postUser = (user, callback) => {
