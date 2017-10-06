@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import Match from './Match.jsx';
+// import axios from 'axios';
+// import Match from './Match.jsx';
 
 class Home extends React.Component {
   constructor(props) {
@@ -12,7 +12,6 @@ class Home extends React.Component {
     this.handlePost = this.handlePost.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleMatchGet = this.handleMatchGet.bind(this);
-    this.handleGameAPICall = this.handleGameAPICall.bind(this);
   }
 
   componentDidMount() {
