@@ -36,7 +36,7 @@ class Match extends React.Component {
     return (
       <div className="form-container">
         <div>
-          <div>{this.state.matches.length} hot singles in your area</div>
+          <div className="match-count">{this.state.matches.length} hot singles in your area</div>
           <br />
           {this.state.matches.map((match, key) => {
             return <MatchEntry match={match} key={key} />

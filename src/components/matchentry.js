@@ -14,7 +14,7 @@ class MatchEntry extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="match-entry">
         <div>Someone wants to play {this.state.match.name} with you!</div>
         <div>On {this.state.match.system}</div>
         <div>Matched player has a mic: {this.state.match.mic}</div>

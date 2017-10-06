@@ -5,7 +5,6 @@ import Match from './components/match';
 import About from './components/about';
 import Login from './components/login';
 import Signup from './components/signup';
-import Nav from './components/nav';
 
 class App extends Component {
   render() {
