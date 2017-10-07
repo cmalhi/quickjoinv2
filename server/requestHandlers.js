@@ -76,6 +76,7 @@ exports.signup = (req, res) => {
           encrypetdUser.password = hash;
           postUser(encrypetdUser, (err, newUser) => {
             if (err) throw err;
+            console.log('logging the req', req ,'req session', req.session)
             // createSession(req.session, username, res);
           })
         })
