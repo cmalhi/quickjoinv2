@@ -26,7 +26,7 @@ exports.login = (req, res) => {
       .then((matching) => {
         console.log('DID THE HASH MATCH?', matching);
         if (matching) {
-          createSession(req, res, username);
+          // createSession(req, res, username);
         } else {
           badLogin(req, res);
         }
