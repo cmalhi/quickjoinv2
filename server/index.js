@@ -1,3 +1,4 @@
+var path = require('path');
 var cors = require('cors');
 var router = require('./router')
 var express = require('express');
@@ -34,6 +35,8 @@ app.use(function(req, res, next) {
   res.setHeader('Cache-Control', 'no-cache');
   next();
 });
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/public')));
 //now we can set the route path & initialize the API
 router.get('/', function(req, res) {
   res.send({ message: 'API Initialized!'});
@@ -41,6 +44,11 @@ router.get('/', function(req, res) {
 });
 //Use our router configuration when we call /api
 app.use('/api', router);
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/public/index.html'));
+});
 //starts the server and listens for requests
 app.listen(port, host, function() {
   console.log(`Connected to port ${port}`, host);
