@@ -18,7 +18,7 @@ class Signup extends React.Component {
   handlePost(userObj) {
     axios({
       method: 'POST',
-      url: 'https://ancient-plains-92997.herokuapp.com/api/handlesignup',
+      url: '/api/handlesignup',
       data: userObj,
     })
     .then((res) => {
