@@ -43,6 +43,6 @@ router.get('/', function(req, res) {
 app.use('/api', router);
 //starts the server and listens for requests
 app.listen(port, host, function() {
-  console.log(`Connected to port ${port}`);
+  console.log(`Connected to port ${port}`, host);
 });
 //adding the /appointments route to our /api router
