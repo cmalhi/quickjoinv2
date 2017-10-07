@@ -26,7 +26,7 @@ exports.login = (req, res) => {
       .then((matching) => {
         console.log('DID THE HASH MATCH?', matching);
         if (matching) {
-          // createSession(req, res, username);
+          createSession(req, res, username);
         } else {
           badLogin(req, res);
         }
@@ -76,8 +76,8 @@ exports.signup = (req, res) => {
           encrypetdUser.password = hash;
           postUser(encrypetdUser, (err, newUser) => {
             if (err) throw err;
-            console.log('logging the req', req ,'req session', req.session)
-            // createSession(req.session, username, res);
+            console.log('logging the req', req ,'req session', req.session, 'new user', newUser)
+            createSession(req, res, username);
           })
         })
       })

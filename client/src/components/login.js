@@ -1,6 +1,6 @@
 import React from 'react'
 import Signup from './signup'
-// import axios from 'axios'
+import axios from 'axios'
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import { promisify } from 'bluebird';
 
@@ -18,17 +18,17 @@ class Login extends React.Component {
   }
 
   handlePost(userObj) {
-    // axios({
-    //   method: 'POST',
-    //   url: '/handlelogin',
-    //   data: userObj,
-    // })
-    // .then((res) => {
-    //   console.log('ran post request for submitting login info on front end', res.data);
-    //   if (res.data === 'Login failed') {
-    //     this.setState({badLogin: true})
-    //   }
-    // })
+    axios({
+      method: 'POST',
+      url: '/api/handlelogin',
+      data: userObj,
+    })
+    .then((res) => {
+      console.log('ran post request for submitting login info on front end', res.data);
+      if (res.data === 'Login failed') {
+        this.setState({badLogin: true})
+      }
+    })
   }
 
   handleSubmit(e) {
