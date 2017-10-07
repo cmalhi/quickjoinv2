@@ -41,6 +41,10 @@ router.get('/', function(req, res) {
 });
 //Use our router configuration when we call /api
 app.use('/api', router);
+//send out the index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 //starts the server and listens for requests
 app.listen(port, host, function() {
   console.log(`Connected to port ${port}`);
