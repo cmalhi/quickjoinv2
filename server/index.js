@@ -1,3 +1,4 @@
+var path = require('path');
 var cors = require('cors');
 var router = require('./router')
 var express = require('express');
