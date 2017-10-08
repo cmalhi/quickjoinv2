@@ -104,39 +104,34 @@ body {
 .nav {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: space-around;
+  flex-shrink: 0;
+  overflow: auto;
   color: white;
   font-size: 2em;
   font-weight: 600;
-  padding: 1%;
-  border: 6px solid transparent;
+  border: 15px solid transparent;
   border-radius: 3px;
   background-color: #303030;
   width: 100%;
 }
 
-/*.nav-entry {
+.nav-entry {
+  text-decoration: none;
   color: white;
-  font-size: 50%;
-  padding: 2%;
-  margin: 1%;
-  border: 1px solid purple;
-  border-radius: 3px;
-  background-color: #262626;
+  font-weight: 700;
+  text-align: center;
+  font-size: .9em;
+  border-right: 1px solid purple;
   width: 22%;
-}*/
+  padding: 2%;
+}
+
+.nav-entry:last-child {
+  border-right: none;
+}
 
 .home-subtitle {
   font-size: 1.5em;
-}
-
-.link:link {
-  color: white;
-}
-
-.link:visited {
-  color: white;
 }
 
 .match-count {

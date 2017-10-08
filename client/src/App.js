@@ -13,24 +13,12 @@ class App extends Component {
         <div>
           <div className="title">QuickJoin</div>
           <div className="nav">
-            <div className="nav-entry">
-              <Link to="/about">About</Link>
-            </div>
-            <div className="nav-entry">
-              <Link to="/home">Home</Link> 
-            </div>
-            <div className="nav-entry">
-              <Link to="/match">Match</Link>
-            </div>
-            <div className="nav-entry">
-              <Link to="/login">Login</Link>
-            </div>
-            <div className="nav-entry">
-              <Link to="/signup">Signup</Link>
-            </div>
-            <div className="nav-entry">
-              <Link to="/logout">Logout</Link>
-            </div>
+            <Link className="nav-entry" to="/about">ABOUT</Link>
+            <Link className="nav-entry" to="/home">HOME</Link> 
+            <Link className="nav-entry" to="/match">MATCH</Link>
+            <Link className="nav-entry" to="/login">LOGIN</Link>
+            <Link className="nav-entry" to="/signup">SIGNUP</Link>
+            <Link className="nav-entry" to="/logout">LOGOUT</Link>
           </div>
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
