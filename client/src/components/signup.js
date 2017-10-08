@@ -57,18 +57,18 @@ class Signup extends React.Component {
             <label>
               <br />
               <div>Choose username wisely</div>
-              <input className="form-input" id="signupUsername" type="text" autoFocus placeholder="choose username wisely" ref="username" />
+              <input className="form-input" id="signupUsername" type="text" autoFocus ref="username" />
               <br />
               <br />
               <div>Create a password</div>
-              <input className="form-input" id="signupPassword" type="password" placeholder="enter a good password" ref="password" />
+              <input className="form-input" id="signupPassword" type="password" ref="password" />
               {this.state.usernameTaken ? <div style={{color: 'red'}}>Username is already taken.</div> : <br />}
               <br />
               <input className="form-button" type="submit" value="SUBMIT" />
             </label>
           </form>
           <br />
-          <button className="form-button"><Link className="signup-link" to="/Login">Login</Link></button>
+          <Link className="form-button" to="/login">LOGIN</Link>
           <br />
         </div>
       </div>

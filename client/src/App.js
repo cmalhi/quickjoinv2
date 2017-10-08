@@ -5,16 +5,25 @@ import Match from './components/match';
 import About from './components/about';
 import Login from './components/login';
 import Signup from './components/signup';
+import axios from'axios';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.handleLogout = this.handleLogout.bind(this);
     this._inactive = 'nav-entry',
     this._active = 'nav-entry-active'
   }
 
-  componentDidMount() {
-    console.log('props in app', this.props)
+  handleLogout() {
+    axios({
+      method: 'POST',
+      url: '/api/handlelogout',
+    })
+    .then((res) => {
+      console.log('logout function ran', res)
+      //redirect to login screen
+    })
   }
 
   render() {
@@ -28,7 +37,7 @@ class App extends Component {
             <Link className="nav-entry" to="/match">MATCH</Link>
             <Link className="nav-entry" to="/login">LOGIN</Link>
             <Link className="nav-entry" to="/signup">SIGNUP</Link>
-            <Link className="nav-entry" to="/logout">LOGOUT</Link>
+            <div className="nav-entry" onClick={this.handleLogout}>LOGOUT</div>
           </div>
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
@@ -36,7 +45,6 @@ class App extends Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/logout" render={() => <h1>Process LOGOUT</h1>} />
         </div>
       </Router>
     );

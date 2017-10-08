@@ -62,6 +62,10 @@ body {
   background-color: #262626;
 }
 
+a {
+  text-decoration: none;
+}
+
 .signup-link {
   text-decoration: none;
 }
@@ -154,6 +158,8 @@ body {
   border-right: 1px solid purple;
   width: 22%;
   padding: 2%;
+  cursor: pointer;
+  cursor: hand;
 }
 
 .nav-entry:last-child {
