@@ -16,6 +16,7 @@ class App extends Component {
   }
 
   handleLogout() {
+    console.log('handle logout function')
     axios({
       method: 'POST',
       url: '/api/handlelogout',

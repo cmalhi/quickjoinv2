@@ -162,3 +162,8 @@ exports.getGamesFromAPI = (req, res) => {
   });
 }
 
+exports.logout = (req, res) => {
+  req.session.destroy()
+  console.log('session destroyed!')
+  res.send('logout successful')
+}

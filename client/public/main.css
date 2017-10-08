@@ -62,10 +62,6 @@ body {
   background-color: #262626;
 }
 
-a {
-  text-decoration: none;
-}
-
 .signup-link {
   text-decoration: none;
 }
@@ -112,6 +108,7 @@ a {
 }
 
 .form-button {
+  text-decoration: none;
   border: 1px solid purple;
   background-color: purple;
   color: white;
