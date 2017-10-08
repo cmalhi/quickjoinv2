@@ -23,6 +23,9 @@ class Signup extends React.Component {
     })
     .then((res) => {
       console.log('ran post request for submitting signup info on front end', res.data);
+      if (res.data === 'the username is already taken') {
+        this.setState({usernameTaken: true});
+      }
     })
   }
 
@@ -31,11 +34,16 @@ class Signup extends React.Component {
     //store username and pass
     var username = this.refs.username.value;
     var password = this.refs.password.value;
+    //creat user object
     var userObj = {
       username: username,
       password: password
     }
+    //check if usename exists
+    //if exists post message to dom that username is taken
+    //if DNE then hash and salt password and sign in 
     this.handlePost(userObj);
+    //reset form values
     this.refs.username.value = '';
     this.refs.password.value = '';
   }

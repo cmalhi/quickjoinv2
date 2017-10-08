@@ -67,7 +67,7 @@ exports.signup = (req, res) => {
     if (err) throw err;
     if (users) {
       console.log('the username exists');
-      res.send(false);
+      res.send('the username is already taken');
     } else {
       //if doesnt exist create new user and encrypt and store password
       bcrypt.genSalt(10, (err, salt) => {
