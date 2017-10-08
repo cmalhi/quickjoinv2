@@ -45,21 +45,21 @@ class Signup extends React.Component {
       <div className="form-container">
         <div className="form">
           <div className="form-title">SIGN UP FOR QUICKJOIN</div>
-          <form onSubmit={this.handleSubmit}>        
+          <form onSubmit={this.handleSubmit} className="login-form">        
             <label>
               <br />
               <div>Choose username wisely</div>
-              <input id="signupUsername" type="text" autoFocus placeholder="choose username wisely" ref="username" />
+              <input className="form-input" id="signupUsername" type="text" autoFocus placeholder="choose username wisely" ref="username" />
               <br />
               <br />
               <div>Create a password</div>
-              <input id="signupPassword" type="password" placeholder="enter a good password" ref="password" />
+              <input className="form-input" id="signupPassword" type="password" placeholder="enter a good password" ref="password" />
               <br />
-              <input type="submit" value="Submit" />
+              <input className="form-button" type="submit" value="SUBMIT" />
             </label>
           </form>
           <br />
-          <button><Link to="/Login">Login</Link></button>
+          <button className="form-button"><Link to="/Login">Login</Link></button>
           <br />
         </div>
       </div>

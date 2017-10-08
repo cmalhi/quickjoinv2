@@ -76,6 +76,7 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
   line-height: 1.75em;
+  font-size: 1.25em;
   margin-left: 10%;
   margin-right: 10%;
   border: 6px solid transparent 60%;
@@ -86,8 +87,32 @@ body {
 }
 
 .form-title {
+  width: 100%;
   font-size: 1.85em;
   font-weight: 600;
+  padding-bottom: 2%;
+  border-bottom: 1px solid purple;
+}
+
+.form-input {
+  font-size: 1em;
+  width: 62%;
+  line-height: 26px;
+  border: 3px solid purple;
+  border-radius: 3px;
+  padding: 1%;
+}
+
+.form-button {
+  border: 1px solid purple;
+  background-color: purple;
+  color: white;
+  font-size: 1em;
+  padding: 1%;
+}
+
+.login-form {
+  width: 100%;
 }
 
 .title {
@@ -109,7 +134,7 @@ body {
   color: white;
   font-size: 2em;
   font-weight: 600;
-  border: 15px solid transparent;
+  border: 12px solid transparent;
   border-radius: 3px;
   background-color: #303030;
   width: 100%;
@@ -118,7 +143,7 @@ body {
 .nav-entry {
   text-decoration: none;
   color: white;
-  text-shadow: 3px 2px purple;
+  text-shadow: 2px 2px purple;
   font-weight: 700;
   text-align: center;
   font-size: .9em;

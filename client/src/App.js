@@ -7,6 +7,16 @@ import Login from './components/login';
 import Signup from './components/signup';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this._inactive = 'nav-entry',
+    this._active = 'nav-entry-active'
+  }
+
+  componentDidMount() {
+    console.log('props in app', this.props)
+  }
+
   render() {
     return (
       <Router>

@@ -14,7 +14,7 @@ class Login extends React.Component {
       badLogin: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePpost = this.handlePost.bind(this);
+    this.handlePost = this.handlePost.bind(this);
   }
 
   handlePost(userObj) {
@@ -36,13 +36,15 @@ class Login extends React.Component {
     //grab username data from refs
     var username = this.refs.username.value;
     var password = this.refs.password.value;
+    //create user object payload
     var userObj = {
       username: username,
       password: password,
     }
-    this.handlePost(userObj);
     //check if usename exists
     //if exists hash and salt password and sign in 
+    this.handlePost(userObj);
+    //reset form values
     this.refs.username.value = '';
     this.refs.password.value = '';
   }
@@ -55,19 +57,19 @@ class Login extends React.Component {
           <form onSubmit={this.handleSubmit} className="login-form">        
             <label>
               <br />
-              <div className="login-form-text">Enter your username</div>
-              <input id="loginUsername" type="text" autoFocus placeholder="enter your username" ref="username" />
+              <div>Enter username</div>
+              <input className="form-input" id="loginUsername" type="text" autoFocus ref="username" />
               <br />
               <br />
-              <div className="login-form-text">Enter your password</div>
-              <input id="loginPassword" type="password" placeholder="enter your password" ref="password" />
+              <div>Enter password</div>
+              <input className="form-input" id="loginPassword" type="password" ref="password" />
               <br />
               {this.state.badLogin && <div style={{color: 'red'}}>Incorrect username or password.</div>}
-              <input type="submit" value="Submit" className="login-submit"/>
+              <input className="form-button" type="submit" value="SUBMIT"/>
             </label>
           </form>
           <br />
-          <button><Link to="/Signup">Signup</Link></button>
+          <button className="form-button"><Link to="/Signup">Signup</Link></button>
           <br />
         </div>
       </div>
