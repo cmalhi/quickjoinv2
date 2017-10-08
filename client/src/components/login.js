@@ -64,7 +64,7 @@ class Login extends React.Component {
               <div>Enter password</div>
               <input className="form-input" id="loginPassword" type="password" ref="password" />
               <br />
-              {this.state.badLogin && <div style={{color: 'red'}}>Incorrect username or password.</div>}
+              {this.state.badLogin ? <div style={{color: 'red'}}>Incorrect username or password.</div> : <br/>}
               <input className="form-button" type="submit" value="SUBMIT"/>
             </label>
           </form>

@@ -62,6 +62,10 @@ body {
   background-color: #262626;
 }
 
+.signup-link {
+  text-decoration: none;
+}
+
 .form-container {
   padding: 4%;
   display: flex;

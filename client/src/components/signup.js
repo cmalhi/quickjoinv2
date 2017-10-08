@@ -62,12 +62,13 @@ class Signup extends React.Component {
               <br />
               <div>Create a password</div>
               <input className="form-input" id="signupPassword" type="password" placeholder="enter a good password" ref="password" />
+              {this.state.usernameTaken ? <div style={{color: 'red'}}>Username is already taken.</div> : <br />}
               <br />
               <input className="form-button" type="submit" value="SUBMIT" />
             </label>
           </form>
           <br />
-          <button className="form-button"><Link to="/Login">Login</Link></button>
+          <button className="form-button"><Link className="signup-link" to="/Login">Login</Link></button>
           <br />
         </div>
       </div>
