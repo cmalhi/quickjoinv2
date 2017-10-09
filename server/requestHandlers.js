@@ -1,9 +1,13 @@
+const igdb = require('igdb-api-node').default;
 var db = require('./db');
-var { promisify } = require('bluebird');
 var bcrypt = require('bcrypt');
-
+var { promisify } = require('bluebird');
+var config = require('./config');
 var promisifiedFind = promisify(db.users.findOne.bind(db));
 var sessionUser;
+
+global['3scaleKey'] = config.IGDBKey;
+const client = igdb();
 
 exports.login = (req, res) => {
   //extract user
@@ -146,4 +150,17 @@ exports.logout = (req, res) => {
   req.session.destroy()
   console.log('session destroyed!')
   res.send('logout successful')
+}
+
+exports.getGames = (req, res) => {
+  client.games({
+      fields: '*', // Return all fields
+      limit: 5, // Limit to 5 results
+      offset: 15 // Index offset for results
+  }).then(response => {
+      // response.body contains the parsed JSON response to this query
+      console.log('COMING BACK FROM THE IGDB API', response.body);
+  }).catch(error => {
+      throw error;
+  });
 }

@@ -11,8 +11,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
-    this._inactive = 'nav-entry',
-    this._active = 'nav-entry-active'
+    this._inactive = 'nav-entry';
+    this._active = 'nav-entry-active';
+  }
+
+  componentDidMount() {
+    axios({
+      method: 'GET',
+      url: '/api/getgames',
+    })
+    .then((res) => {
+      console.log('get games function ran', res)
+      //redirect to login screen
+    })
+    console.log('APP MOUNTED')
   }
 
   handleLogout() {

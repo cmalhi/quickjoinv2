@@ -9,6 +9,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.1",
     "express-session": "^1.15.6",
+    "igdb-api-node": "^3.0.2",
     "mongoose": "^4.12.0",
     "nodemon": "^1.12.1",
     "path": "^0.12.7"

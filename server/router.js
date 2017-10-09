@@ -12,4 +12,6 @@ router.route('/handlegamepost').post(requestHandler.postGames);
 
 router.route('/handlematch').get(requestHandler.getMatches);
 
+router.route('/getgames').get(requestHandler.getGames)
+
 module.exports = router;
