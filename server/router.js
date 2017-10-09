@@ -8,9 +8,8 @@ router.route('/handlesignup').post(requestHandler.signup);
 
 router.route('/handlelogout').post(requestHandler.logout);
 
+router.route('/handlegamepost').post(requestHandler.postGames);
+
 router.route('/handlematch').get(requestHandler.getMatches);
-
-router.route('/gamesapi').get(requestHandler.getGamesFromAPI);
-
 
 module.exports = router;

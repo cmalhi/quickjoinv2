@@ -1,14 +1,9 @@
-// var config = require('../../config');
 var db = require('./db');
 var { promisify } = require('bluebird');
 var bcrypt = require('bcrypt');
 
 var promisifiedFind = promisify(db.users.findOne.bind(db));
 var sessionUser;
-//if there is a session go directly to /GameForm
-
-// global['3scaleKey'] = config.IGDBKey;
-// const client = igdb();
 
 exports.login = (req, res) => {
   //extract user
@@ -35,28 +30,6 @@ exports.login = (req, res) => {
   });
 }
 
-getUser = (username, callback) => {
-  db.users.findOne({username}, callback)
-}
-
-badLogin = (req, res) => {
-  console.log('bad Login');
-  res.send('Login failed');
-}
-
-createSession = (req, res, user) => {
-  req.session.regenerate((err) => {
-    if (err) throw err;
-    req.session.user = user;
-    sessionUser = req.session.user;
-    //add the user to the session for easy access when doing match requests.
-    //add user to newGame schema so that you can reject your own results when filtering.
-    console.log('a new session was created by', user)
-    res.send(req.session)
-  })
-}
-
-
 exports.signup = (req, res) => {
   //extract user
   var username = req.body.username;
@@ -76,13 +49,34 @@ exports.signup = (req, res) => {
           encrypetdUser.password = hash;
           postUser(encrypetdUser, (err, newUser) => {
             if (err) throw err;
-            console.log('logging the req', req ,'req session', req.session, 'new user', newUser)
+            console.log('posting usesr to database')
             createSession(req, res, username);
           })
         })
       })
     }
   });
+}
+
+getUser = (username, callback) => {
+  db.users.findOne({username}, callback)
+}
+
+badLogin = (req, res) => {
+  console.log('bad Login');
+  res.send('Login failed');
+}
+
+createSession = (req, res, user) => {
+  req.session.regenerate((err) => {
+    if (err) throw err;
+    req.session.user = user;
+    sessionUser = req.session.user;
+    //add the user to the session for easy access when doing match requests.
+    //add user to newGame schema so that you can reject your own results when filtering.
+    console.log('a new session was created by', user)
+    res.send(req.session)
+  })
 }
 
 postUser = (user, callback) => {
@@ -146,20 +140,6 @@ exports.getMatches = (req, res) => {
   })
   //find all games that match without the username matching 
   //filter out and send all the games that are the same not by the user
-}
-
-exports.getGamesFromAPI = (req, res) => {
-  client.games({
-      fields: '*', // Return all fields
-      limit: 5, // Limit to 5 results
-      offset: 15 // Index offset for results
-  }).then(res => {
-      // response.body contains the parsed JSON response to this query
-      console.log('response form api call');
-      res.send(res.data)
-  }).catch(error => {
-      throw error;
-  });
 }
 
 exports.logout = (req, res) => {

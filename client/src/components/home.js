@@ -1,5 +1,5 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 // import Match from './Match.jsx';
 
 class Home extends React.Component {
@@ -23,7 +23,16 @@ class Home extends React.Component {
   }
 
   handlePost(gamePostObj) {
-    console.log(gamePostObj)
+    axios({
+      method: 'POST',
+      url: '/api/handlegamepost',
+      data: gamePostObj
+    })
+    .then((res) => {
+      //this.handleMatchGet(gamePostObj);
+      console.log('ran post request for submitting post on front end');
+    })
+    console.log('attempted to post: ', gamePostObj)
   }
 
   handleSubmit(e) {
