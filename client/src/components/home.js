@@ -10,10 +10,14 @@ class Home extends React.Component {
       games: null,
       cover: null,
       searchData: [{url: '', title: ''}],
+      selected: false,
+      chosenSystem: null,
+      chosenGame: null,
     };
     this.handlePost = this.handlePost.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleChoice = this.handleChoice.bind(this);
     this.handleMatchGet = this.handleMatchGet.bind(this);
     this.handleSearchCall = this.handleSearchCall.bind(this);
   }
@@ -41,24 +45,27 @@ class Home extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log('THE GAME U WANT TO PLAY IS', this.state.chosenGame, this.state.selected)
     var gamePostObj = {};
-    // gamePostObj.name = this.refs.name.value;
-    // gamePostObj.system = this.refs.system.value;
-    gamePostObj.mic = this.refs.mic.value;
-    gamePostObj.gamertag = this.refs.gamertag.value;
+    if (this.state.selected) {    
+      gamePostObj.name = this.state.chosenGame;
+      gamePostObj.system = this.state.chosenSystem;
+      gamePostObj.message = this.refs.message.value;
+      gamePostObj.gamertag = this.refs.gamertag.value;
 
-    if (this.refs.system.value === 'xbox one') {
-      alert('Xbox is garbage fam')
+      if (this.refs.system.value === 'xbox one') {
+        alert('Xbox is garbage fam')
+      }
+      console.log('gamepostobj', gamePostObj)
+      this.handlePost(gamePostObj);
+
+      //reset all the input fields
+      this.refs.message.value = ''; 
+      this.refs.gamertag.value = '';
+      //after submit you should be ridirected to the Match page
+    } else {
+      console.log('you have to select a game first');
     }
-    console.log('gamepostobj', gamePostObj)
-    this.handlePost(gamePostObj);
-
-    //reset all the input fields
-    // this.refs.name.value = '';
-    // this.refs.system.value = '';
-    this.refs.mic.value = ''; 
-    this.refs.gamertag.value = '';
-    //after submit you should be ridirected to the Match page
   }
 
   handleSearch(e) {
@@ -66,6 +73,7 @@ class Home extends React.Component {
     var gameSearchObj = {};
     gameSearchObj.name = this.refs.name.value;
     gameSearchObj.system = this.refs.system.value;
+    this.setState({chosenSystem: this.refs.system.value});
     this.handleSearchCall(gameSearchObj)
 
     this.refs.name.value = '';
@@ -98,13 +106,16 @@ class Home extends React.Component {
     console.log('attempted to post: ', gameSearchObj)
   }
 
+  handleChoice(name) {
+    this.setState({chosenGame: name, selected: true})
+  }
 
   // <input className="form-input" id= "newGameSystem" type="text" ref="system" />
   render() {
     const images = this.state.searchData.map((game, i) => {
       console.log(game,i)
       return (
-        <div className="game-search">
+        <div onClick={this.handleChoice.bind(this, game.name)} className="game-search">
           <img className="game-search-image" src={game.url} key={i} />
           <div>{game.name}</div>
         </div>
@@ -118,12 +129,12 @@ class Home extends React.Component {
             <label>
               <br />
               <div className="form-element">
-                <div>What game are you about to play?</div>
+                <div>Search game titles</div>
                 <input className="form-input" id= "newGameName" type="text" autoFocus ref="name" />
               </div>
               <br />
               <div className="form-element">
-                <div>What gaming system are you using?</div>
+                <div>System</div>
                 <select ref="system">
                   <option>PS4</option>
                   <option>Xbox One</option>
@@ -140,15 +151,15 @@ class Home extends React.Component {
           <form onSubmit={this.handleSubmit.bind(this)} className="login-form">
             <label>
               <div className="form-element">
-                <div>Do you have a mic?</div>
-                <input className="form-input" id= "newGameMic" type="text" ref="mic" />
-              </div>
-              <br />
-              <div className="form-element">
-                <div>Gamertag</div>
+                <div>PSN/Gamertag</div>
                 <input className="form-input" id= "newGameGamerTag" type="text" ref="gamertag" />
               </div>
-              <br />                              
+              <br />  
+              <div className="form-element">
+                <div>A breif message to go along with your post</div>
+                <input className="form-input" id= "newGameMessage" type="text" ref="message" />
+              </div>
+              <br />                    
               <input className="form-button" type="submit" value="SUBMIT" />
             </label>
           </form>

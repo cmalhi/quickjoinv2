@@ -13,7 +13,7 @@ db.once('open', function() {
 var gameSchema = mongoose.Schema({
   name: String,
   system: String,
-  mic: String,
+  message: String,
   user: String,
   gamertag: String
 });

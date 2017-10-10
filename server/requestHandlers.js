@@ -91,7 +91,7 @@ exports.postGames = (req, res) => {
   var newGame = {};
   newGame.name = req.body.name;
   newGame.system = req.body.system;
-  newGame.mic = req.body.mic;
+  newGame.message = req.body.message;
   newGame.user = sessionUser;
   newGame.gamertag = req.body.gamertag;
   console.log('newgame variable', newGame)
