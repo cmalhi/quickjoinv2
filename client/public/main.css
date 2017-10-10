@@ -171,3 +171,24 @@ body {
   font-size: 1.5em;
   color: white;
 }
+
+.game-search-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 1%;
+}
+
+.game-search {
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  font-size: .25em;
+  width: 150px;
+  height: 150px;
+}
+
+.game-search-image {
+  width: 128px;
+  height: 128px;
+}
