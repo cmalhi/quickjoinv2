@@ -1,7 +1,7 @@
 import React from 'react';
-import Signup from './signup';
 import axios from 'axios';
 import auth from '../auth';
+import Signup from './signup';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import { promisify } from 'bluebird';
 
@@ -82,7 +82,7 @@ class Login extends React.Component {
           <br />
         </div>
       </div>
-    )
+    ) 
   }
 }
 

@@ -10,7 +10,15 @@ import auth from './auth';
 
 var loggedIn = auth('not logged in');
 
-class App extends Component {
+export function authApp(event) {
+  if (event === 'logged in') {
+    loggedIn = true;
+  } else if (event === 'not logged in') {
+    loggedIn = false;
+  }
+}
+
+export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -93,7 +101,6 @@ class App extends Component {
   }
 }
 
-export default App;
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
