@@ -125,49 +125,44 @@ class Home extends React.Component {
       <div className="form-container">
         <div className="form">
         <div className="form-title">SEARCH FOR PLAYERS</div>
-          <form onSubmit={this.handleSearch.bind(this)} className="login-form">
-            <label>
-              <br />
-              <div className="form-element">
-                <div>Search game titles</div>
-                <input className="form-input" id= "newGameName" type="text" autoFocus ref="name" />
-              </div>
-              <br />
-              <div className="form-element">
-                <div>System</div>
-                <select ref="system">
-                  <option>PS4</option>
-                  <option>Xbox One</option>
-                </select>
-              </div>
-              <br />                              
-              <input className="form-button" type="submit" value="SEARCH" />
-            </label>
-          </form>
-          <br/>
-          <div className="game-search-container">
-            {images}
-          </div>
-          <form onSubmit={this.handleSubmit.bind(this)} className="login-form">
-            <label>
-              <div className="form-element">
-                <div>PSN/Gamertag</div>
-                <input className="form-input" id= "newGameGamerTag" type="text" ref="gamertag" />
-              </div>
-              <br />  
-              <div className="form-element">
-                <div>A breif message to go along with your post</div>
-                <input className="form-input" id= "newGameMessage" type="text" ref="message" />
-              </div>
-              <br />                    
-              <input className="form-button" type="submit" value="SUBMIT" />
-            </label>
-          </form>
-        <div>
-        <br />
-        Click here to check for matches
-        <br />
+        <form onSubmit={this.handleSearch.bind(this)} className="login-form">
+          <label>
+            <br />
+            <div className="form-element">
+              <div>Search game titles</div>
+              <input className="form-input" id= "newGameName" type="text" autoFocus ref="name" />
+            </div>
+            <br />
+            <div className="form-element">
+              <div>System</div>
+              <select ref="system">
+                <option>PS4</option>
+                <option>Xbox One</option>
+              </select>
+            </div>
+            <br />                              
+            <input className="form-button" type="submit" value="SEARCH" />
+          </label>
+        </form>
+        <br/>
+        <div className="game-search-container">
+          {images}
         </div>
+        <form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+          <label>
+            <div className="form-element">
+              <div>PSN/Gamertag</div>
+              <input className="form-input" id= "newGameGamerTag" type="text" ref="gamertag" />
+            </div>
+            <br />  
+            <div className="form-element">
+              <div>A breif message to go along with your post</div>
+              <input className="form-input" id= "newGameMessage" type="text" ref="message" />
+            </div>
+            <br />                    
+            <input className="form-button" type="submit" value="SUBMIT" />
+          </label>
+        </form>
       </div>
     </div>
     );

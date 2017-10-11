@@ -14,5 +14,6 @@ router.route('/getgames').post(requestHandler.getGames)
 
 router.route('/handlematch').get(requestHandler.getMatches);
 
+router.route('/getauth').get(requestHandler.getAuth);
 
 module.exports = router;

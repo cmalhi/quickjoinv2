@@ -1,5 +1,5 @@
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import MatchEntry from './matchentry'
 
 class Match extends React.Component {
@@ -9,21 +9,23 @@ class Match extends React.Component {
       matches: []
     }
     this.handleMatchesResult = this.handleMatchesResult.bind(this);
+    this.handleMatches = this.handleMatches.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    this.handleMatches();
   }
 
-  handleMatchGet() {
-    // axios({
-    //   method: 'GET',
-    //   url: '/handlematch',
-    // })
-    // .then((res) => {
-    //   console.log('ran get request for getting match on front end', res.data);
-    //   this.setState({matches: res.data})
-    //   console.log('Match: state: matches ', this.state.matches)
-    // })
+  handleMatches() {
+    axios({
+      method: 'GET',
+      url: '/api/handlematch',
+    })
+    .then((res) => {
+      console.log('ran get request for getting match on front end', res.data);
+      this.setState({matches: res.data})
+      console.log('Match: state: matches ', this.state.matches)
+    })
   }
 
   //pass in the match prop if match exists, 

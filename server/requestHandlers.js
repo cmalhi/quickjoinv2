@@ -4,7 +4,6 @@ var config = require('./config');
 var { promisify } = require('bluebird');
 var igdb = require('igdb-api-node').default;
 var promisifiedFind = promisify(db.users.findOne.bind(db));
-var sessionUser;
 
 global['3scaleKey'] = config.IGDBKey;
 const client = igdb();
@@ -23,7 +22,7 @@ exports.login = (req, res) => {
       //if exists check password
       bcrypt.compare(password, userExists.password)
       .then((matching) => {
-        console.log('DID THE HASH MATCH?', matching);
+        console.log('DID THE HASH MATCH?', matching, userExists);
         if (matching) {
           createSession(req, res, username);
         } else {
@@ -75,7 +74,6 @@ createSession = (req, res, user) => {
   req.session.regenerate((err) => {
     if (err) throw err;
     req.session.user = user;
-    sessionUser = req.session.user;
     //add the user to the session for easy access when doing match requests.
     //add user to newGame schema so that you can reject your own results when filtering.
     console.log('a new session was created by', user)
@@ -89,10 +87,11 @@ postUser = (user, callback) => {
 
 exports.postGames = (req, res) => {
   var newGame = {};
+  console.log('the user posting is ', req.session.user)
   newGame.name = req.body.name;
   newGame.system = req.body.system;
   newGame.message = req.body.message;
-  newGame.user = sessionUser;
+  newGame.user = req.session.user;
   newGame.gamertag = req.body.gamertag;
   console.log('newgame variable', newGame)
   postGame(newGame, (err, game) => {
@@ -119,8 +118,8 @@ exports.getMatches = (req, res) => {
   //create obj to store game submitted by user
   var userGame = {};
   //grab that game and store the value into the obj
-  getGamesByUser(sessionUser, (err, games) => {
-    console.log('the session user is ', sessionUser)
+  getGamesByUser(req.session.user, (err, games) => {
+    console.log('the session user is ', req.session.user)
     if (err) throw err;
     //console.log('grabbed all the games the user posted', games);
     userGame.name = games[0].name;
@@ -135,7 +134,7 @@ exports.getMatches = (req, res) => {
       if (err) throw err;
       //console.log('in get matches the games returned are ', games);
       var filteredGameArray = games.filter((game) => {
-        return game.user !== sessionUser;
+        return game.user !== req.session.user;
       });
       //console.log('The filtered Game Array: ', filteredGameArray)
       res.send(filteredGameArray);
@@ -174,4 +173,13 @@ exports.getGames = (req, res) => {
   }).catch(error => {
       throw error;
   });
+}
+
+exports.getAuth = (req, res) => {
+  if (req.session.user) {
+    res.send('logged in');
+  } else {
+    console.log('no session')
+    res.send('not logged in');
+  }
 }

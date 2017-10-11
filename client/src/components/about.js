@@ -38,6 +38,7 @@ class Login extends React.Component {
           </div>
           <br/>
           <div>WELL WUT R U WATING 4 BRUH. Signup and get started!</div>
+          <div>Created by Chetanpreet Malhi</div>
         </div>
       </div>
     )

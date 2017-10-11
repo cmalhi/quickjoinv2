@@ -5,7 +5,9 @@ var express = require('express');
 var mongoose = require('mongoose');
 var sessions = require('express-session');
 var bodyParser = require('body-parser');
-// var Appointment = require('./model/appointments');
+var MongoStore = require('connect-mongo')(sessions);
+var db = require('./db').db
+
 //and create our instances
 var app = express();
 //set our port to either a predetermined port number if you have set 
@@ -22,7 +24,8 @@ app.use(bodyParser.json());
 app.use(sessions({
   resave: false,
   saveUninitialized: true,
-  secret: 'meow'
+  secret: 'meow',
+  store: new MongoStore({ mongooseConnection: db })
 }));
 //To prevent errors from Cross Origin Resource Sharing, we will set 
 //our headers to allow CORS with middleware like so:
@@ -48,6 +51,7 @@ app.use('/api', router);
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/../client/build/index.html'));
+  res.send(req.session)
 });
 //starts the server and listens for requests
 app.listen(port, host, function() {

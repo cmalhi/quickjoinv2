@@ -27,6 +27,8 @@ class Login extends React.Component {
       console.log('ran post request for submitting login info on front end', res.data);
       if (res.data === 'Login failed') {
         this.setState({badLogin: true})
+      } else {
+        this.setState({signedIn: true})
       }
     })
   }
