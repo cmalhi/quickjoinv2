@@ -6,9 +6,9 @@ import About from './components/about';
 import Login from './components/login';
 import Signup from './components/signup';
 import axios from'axios';
+import auth from './auth';
 
-var loggedIn = false;
-exports.loggedIn = loggedIn;
+var loggedIn = auth('not logged in');
 
 class App extends Component {
   constructor(props) {
@@ -47,10 +47,10 @@ class App extends Component {
       console.log(res.data, 'auth happened')
       if (res.data === 'logged in') {
         this.setState({loggedIn: true});
-        loggedIn = true;
+        auth('logged in');
       } else {
         this.setState({loggedIn: false});
-        loggedIn = false;
+        auth('not logged in');
       }
     })
     console.log('getting auth')
@@ -97,7 +97,7 @@ export default App;
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    loggedIn ? (
+    auth('status') ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
