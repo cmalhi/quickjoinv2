@@ -1,6 +1,7 @@
-import React from 'react'
-import Signup from './signup'
-import axios from 'axios'
+import React from 'react';
+import Signup from './signup';
+import axios from 'axios';
+import auth from '../auth';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import { promisify } from 'bluebird';
 
@@ -17,6 +18,10 @@ class Login extends React.Component {
     this.handlePost = this.handlePost.bind(this);
   }
 
+  componentWillMount() {
+    this.setState({signedIn: auth('status')});
+  }
+
   handlePost(userObj) {
     axios({
       method: 'POST',
@@ -26,9 +31,11 @@ class Login extends React.Component {
     .then((res) => {
       console.log('ran post request for submitting login info on front end', res.data);
       if (res.data === 'Login failed') {
-        this.setState({badLogin: true})
+        this.setState({badLogin: true});
+        auth('not logged in');
       } else {
-        this.setState({signedIn: true})
+        this.setState({signedIn: true});
+        auth('logged in');
       }
     })
   }

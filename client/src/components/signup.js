@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './login';
 import axios from 'axios';
+import auth from '../auth';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 
 
@@ -15,6 +16,10 @@ class Signup extends React.Component {
     this.handlePost = this.handlePost.bind(this);
   }
 
+  componentWillMount() {
+    this.setState({signedIn: auth('status')});
+  }
+
   handlePost(userObj) {
     axios({
       method: 'POST',
@@ -25,6 +30,9 @@ class Signup extends React.Component {
       console.log('ran post request for submitting signup info on front end', res.data);
       if (res.data === 'the username is already taken') {
         this.setState({usernameTaken: true});
+        auth('not logged in');
+      } else {
+        auth('logged in');
       }
     })
   }
@@ -37,7 +45,7 @@ class Signup extends React.Component {
     //creat user object
     var userObj = {
       username: username,
-      password: password
+      password: password,
     }
     //check if usename exists
     //if exists post message to dom that username is taken
@@ -49,7 +57,7 @@ class Signup extends React.Component {
   }
 
   render() {
-    
+
     return (
       <div className="form-container">
         <div className="form">
