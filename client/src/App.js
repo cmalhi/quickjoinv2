@@ -22,7 +22,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: true,
+      loggedIn: false,
     }
     this.handleLogout = this.handleLogout.bind(this);
     this._inactive = 'nav-entry';
@@ -77,6 +77,17 @@ export class App extends Component {
   }
 
   render() {
+    const PrivateRoute = ({ component: Component, ...rest }) => (
+      <Route {...rest} render={props => (
+        this.state.loggedIn ? (
+          <Component {...props}/>
+        ) : (
+          <Redirect to={{
+            pathname: '/login',
+          }}/>
+        )
+      )}/>
+    )
     return (
       <Router>
         <div>
@@ -102,14 +113,3 @@ export class App extends Component {
 }
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    auth('status') ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-      }}/>
-    )
-  )}/>
-)

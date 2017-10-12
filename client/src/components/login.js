@@ -19,7 +19,11 @@ class Login extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({signedIn: auth('status')});
+    this.setState({signedIn: auth('status')}, ()=>{
+      if (auth('status') === 'logged in') {
+        return <Redirect to={{pathname: "/home"}} />;
+      }
+    });
   }
 
   handlePost(userObj) {
@@ -59,6 +63,13 @@ class Login extends React.Component {
   }
 
   render() {
+    if (this.state.signedIn) {
+      return (
+        <Router>
+         <Redirect to={{pathname: '/about'}} />
+        </Router>
+      )
+    }
     return (
       <div className="form-container">
         <div className=" form">
