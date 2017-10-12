@@ -4,7 +4,7 @@
 
 ## Usage
 
-- This app will be deployed to heroku shortly! (as of 10/12/2017)
+- A live demo of this app will be deployed to heroku within the next -3 days! (as of 10/12/2017)
 
 ## Requirements
 
@@ -34,4 +34,4 @@ module.exports = {
 
 ## Technology Stack
 
-![](images/quickjoin.png?raw=true)
+![](images/techstack.png?raw=true)
