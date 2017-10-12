@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 // import Match from './Match.jsx';
 
 class Home extends React.Component {
@@ -13,21 +14,14 @@ class Home extends React.Component {
       selected: false,
       chosenSystem: null,
       chosenGame: null,
+      search: false,
+      submit: false,
     };
     this.handlePost = this.handlePost.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChoice = this.handleChoice.bind(this);
-    this.handleMatchGet = this.handleMatchGet.bind(this);
     this.handleSearchCall = this.handleSearchCall.bind(this);
-  }
-
-  componentDidMount() {
-    console.log('gameform')
-  }
-
-  handleMatchGet(gamePostObj) {
-    console.log('game post obj', gamePostObj)
   }
 
   handlePost(gamePostObj) {
@@ -38,14 +32,15 @@ class Home extends React.Component {
     })
     .then((res) => {
       //this.handleMatchGet(gamePostObj);
-      console.log('ran post request for submitting post on front end');
+      console.log('submitting game form post');
     })
     console.log('attempted to post: ', gamePostObj)
+    this.setState({submit: true});
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log('THE GAME U WANT TO PLAY IS', this.state.chosenGame, this.state.selected)
+    console.log('THE GAME YOU WANT TO PLAY IS', this.state.chosenGame, this.state.selected)
     var gamePostObj = {};
     if (this.state.selected) {    
       gamePostObj.name = this.state.chosenGame;
@@ -75,7 +70,7 @@ class Home extends React.Component {
     gameSearchObj.system = this.refs.system.value;
     this.setState({chosenSystem: this.refs.system.value});
     this.handleSearchCall(gameSearchObj)
-
+    this.setState({search: true})
     this.refs.name.value = '';
     this.refs.system.value = '';
   }
@@ -146,7 +141,7 @@ class Home extends React.Component {
         </form>
         <br/>
         <div className="game-search-container">
-          {images}
+          {this.state.search && images}
         </div>
         <form onSubmit={this.handleSubmit.bind(this)} className="login-form">
           <label>
@@ -163,6 +158,7 @@ class Home extends React.Component {
             <input className="form-button" type="submit" value="SUBMIT" />
           </label>
         </form>
+        {this.state.submit ? <Redirect to={"/match"}/> : <br/>}
       </div>
     </div>
     );

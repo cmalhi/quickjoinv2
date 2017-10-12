@@ -3,7 +3,6 @@ import axios from 'axios';
 import auth from '../auth';
 import Signup from './signup';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
-import { promisify } from 'bluebird';
 
 
 class Login extends React.Component {
@@ -19,11 +18,6 @@ class Login extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({signedIn: auth('status')}, ()=>{
-      if (auth('status') === 'logged in') {
-        return <Redirect to={{pathname: "/home"}} />;
-      }
-    });
   }
 
   handlePost(userObj) {
@@ -35,13 +29,12 @@ class Login extends React.Component {
     .then((res) => {
       console.log('ran post request for submitting login info on front end', res.data);
       if (res.data === 'Login failed') {
-        this.setState({badLogin: true});
-        auth('not logged in');
+        this.setState({badLogin: true, signedIn: false});
       } else {
-        this.setState({signedIn: true});
-        auth('logged in');
+        this.setState({signedIn: true, badLogin: false});
       }
     })
+    console.log('location', this.props.location)
   }
 
   handleSubmit(e) {
@@ -63,13 +56,6 @@ class Login extends React.Component {
   }
 
   render() {
-    if (this.state.signedIn) {
-      return (
-        <Router>
-         <Redirect to={{pathname: '/about'}} />
-        </Router>
-      )
-    }
     return (
       <div className="form-container">
         <div className=" form">
@@ -89,6 +75,7 @@ class Login extends React.Component {
             </label>
           </form>
           <br />
+          {this.state.signedIn ? <Redirect to={"/about"}/> : <br/>}
           <Link className="form-button"to="/signup">SIGNUP</Link>
           <br />
         </div>

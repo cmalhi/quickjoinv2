@@ -30,9 +30,8 @@ class Signup extends React.Component {
       console.log('ran post request for submitting signup info on front end', res.data);
       if (res.data === 'the username is already taken') {
         this.setState({usernameTaken: true});
-        auth('not logged in');
       } else {
-        auth('logged in');
+        this.setState({signedIn: true});
       }
     })
   }
@@ -77,6 +76,7 @@ class Signup extends React.Component {
             </label>
           </form>
           <br />
+          {this.state.signedIn ? <Redirect to={"/about"}/> : <br/>}
           <Link className="form-button" to="/login">LOGIN</Link>
           <br />
         </div>

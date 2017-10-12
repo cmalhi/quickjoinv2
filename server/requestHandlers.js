@@ -87,20 +87,22 @@ postUser = (user, callback) => {
 
 exports.postGames = (req, res) => {
   var newGame = {};
-  console.log('the user posting is ', req.session.user)
-  newGame.name = req.body.name;
-  newGame.system = req.body.system;
-  newGame.message = req.body.message;
-  newGame.user = req.session.user;
-  newGame.gamertag = req.body.gamertag;
-  console.log('newgame variable', newGame)
-  postGame(newGame, (err, game) => {
-    if (err) throw err;
-    else res.send(game);
-  })
+  if (newGame.name && newGame.system && newGame.message && newGame.user && newGame.gamertag) {  
+    console.log('the user posting is ', req.session.user)
+    newGame.name = req.body.name;
+    newGame.system = req.body.system;
+    newGame.message = req.body.message;
+    newGame.user = req.session.user;
+    newGame.gamertag = req.body.gamertag;
+    console.log('newgame variable', newGame)
+    postGame(newGame, (err, game) => {
+      if (err) throw err;
+      else res.send(game);
+    })
+  }
 }
 
-getGames = (gameObj, callback) => {
+getGames = (gameObj = {name: 'default', system: 'default'}, callback) => {
   var name = gameObj.name;
   var system = gameObj.system;
   db.games.find({name: name, system: system}, callback)
@@ -152,27 +154,29 @@ exports.logout = (req, res) => {
 }
 
 exports.getGames = (req, res) => {
-  var name = req.body.name;
-  var system = req.body.system;
-  if (system === 'PS4') {
-    system = 48;
-  } else if (system === 'Xbox One') {
-    system = 49;
+  if (req.body.name && req.body.system) {
+    var name = req.body.name;
+    var system = req.body.system;
+    if (system === 'PS4') {
+      system = 48;
+    } else if (system === 'Xbox One') {
+      system = 49;
+    }
+    client.games({
+        fields: '*', // Return all fields
+        limit: 15, // Limit to 5 results
+        search: name,
+        filters: {
+          "release_dates.platform-eq" : system
+        }
+    }).then(response => {
+        // response.body contains the parsed JSON response to this query
+        console.log('COMING BACK FROM THE IGDB API', response.body);
+        res.send(response.body);
+    }).catch(error => {
+        throw error;
+    });   
   }
-  client.games({
-      fields: '*', // Return all fields
-      limit: 15, // Limit to 5 results
-      search: name,
-      filters: {
-        "release_dates.platform-eq" : system
-      }
-  }).then(response => {
-      // response.body contains the parsed JSON response to this query
-      console.log('COMING BACK FROM THE IGDB API', response.body);
-      res.send(response.body);
-  }).catch(error => {
-      throw error;
-  });
 }
 
 exports.getAuth = (req, res) => {
