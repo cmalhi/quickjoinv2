@@ -1,16 +1,16 @@
-##QuickJoin
+## QuickJoin
 
 > Meet players who want to play the same online video game as you!
 
-##Usage
+## Usage
 
 - This app will be deployed to heroku shortly! (as of 10/12/2017)
 
-##Requirements
+## Requirements
 
 - Node 6.11.x
 
-##Development
+## Development
 
 To run a local instance...
 
@@ -28,7 +28,7 @@ module.exports = {
 };
 
 ```
-#Screenshot
+## Screenshot
 
 ![](images/quickjoin.png?raw=true)
 
