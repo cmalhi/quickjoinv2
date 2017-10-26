@@ -4,7 +4,7 @@
 
 ## Usage
 
-- A live demo of this app will be deployed to heroku within the next -3 days! (as of 10/15/2017)
+- A live demo of this app will be deployed to heroku within the next -3 days! (as of 10/27/2017)
 
 ## Requirements
 
