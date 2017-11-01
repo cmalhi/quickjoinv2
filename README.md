@@ -4,7 +4,7 @@
 
 ## Usage
 
-- A live demo of this app will be deployed to heroku within the next -3 days! (as of 10/27/2017)
+- A live demo of this app will be deployed to heroku within the next -3 days! (as of 10/31/2017)
 
 ## Requirements
 
@@ -28,6 +28,9 @@ module.exports = {
 };
 
 ```
+
+The client and server are running on 2 different hosts. The client uses proxy for API calls.
+
 ## Screenshot
 
 ![](images/quickjoin.png?raw=true)
