@@ -10,7 +10,6 @@ class Signup extends React.Component {
     super(props);
     this.state = {
       usernameTaken: false,
-      signedIn: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }

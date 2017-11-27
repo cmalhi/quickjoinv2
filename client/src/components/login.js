@@ -10,7 +10,6 @@ class Login extends React.Component {
     super(props);
     this.state = {
       error: '',
-      // signedIn: false,
       badLogin: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,20 +37,6 @@ class Login extends React.Component {
       this.refs.username.value = "";
       this.refs.password.value = "";
     }
-    // //grab username data from refs
-    // var username = this.refs.username.value;
-    // var password = this.refs.password.value;
-    // //create user object payload
-    // var userObj = {
-    //   username: username,
-    //   password: password,
-    // }
-    // //check if usename exists
-    // //if exists hash and salt password and sign in 
-    // this.handlePost(userObj);
-    // //reset form values
-    // this.refs.username.value = '';
-    // this.refs.password.value = '';
   }
 
   render() {

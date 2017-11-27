@@ -172,3 +172,63 @@ body {
 .game-search-image {
   width: 128px;
   height: 128px; }
+
+.nav {
+  padding: auto;
+  background: linear-gradient(to bottom, #70C000 0%, #80C400 100%);
+  height: 90px;
+  width: 100%;
+  margin-bottom: 20px; }
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  padding-left: 20px;
+  padding-right: 20px; }
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; }
+
+.nav-item {
+  text-decoration: none;
+  font-family: 'Poiret One', Arial, sans-serif;
+  font-size: 2em;
+  color: white;
+  text-shadow: 1px 1px red;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  cursor: hand; }
+
+.nav-item:last-child {
+  padding-right: 0px; }
+
+.nav-title {
+  font-family: 'Playball', Arial, sans-serif;
+  color: white;
+  font-size: 3.5em;
+  text-shadow: 1px 1px red; }
+
+.right-column {
+  display: flex;
+  justify-content: row; }
+
+.home-container {
+  background-color: #FFFFFF;
+  height: 100%;
+  padding: 20px; }
+
+.home {
+  height: 100%;
+  padding: 20px; }
+
+.home-title {
+  font-size: 2em; }
+
+.home-subtitle {
+  font-size: 1.5em; }

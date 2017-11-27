@@ -65,7 +65,7 @@ export default class App extends Component {
         <div>
           <nav className="nav">
             <div className="nav-container">
-              <div className="nav-title">HelloFresh</div>
+              <div className="nav-title">QuickJoin</div>
               <div className="nav-list">
                 <Link to="/" className="nav-item">Home</Link>
                 <Link to="/match" className="nav-item">Your Matches</Link>
