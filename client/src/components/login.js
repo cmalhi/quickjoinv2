@@ -1,58 +1,57 @@
 import React from 'react';
 import axios from 'axios';
-import auth from '../auth';
 import Signup from './signup';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import { ref, firebaseAuth } from '../auth/firebase';
 
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      usernameTaken: false,
-      signedIn: false,
+      error: '',
+      // signedIn: false,
       badLogin: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePost = this.handlePost.bind(this);
   }
 
-  componentWillMount() {
-  }
-
-  handlePost(userObj) {
-    axios({
-      method: 'POST',
-      url: '/api/handlelogin',
-      data: userObj,
-    })
-    .then((res) => {
-      console.log('ran post request for submitting login info on front end', res.data);
-      if (res.data === 'Login failed') {
-        this.setState({badLogin: true, signedIn: false});
-      } else {
-        this.setState({signedIn: true, badLogin: false});
-      }
-    })
-    console.log('location', this.props.location)
+  validateEmail(e) {
+    const filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+    return String(e).search (filter) != -1;
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    //grab username data from refs
-    var username = this.refs.username.value;
-    var password = this.refs.password.value;
-    //create user object payload
-    var userObj = {
-      username: username,
-      password: password,
+    if (this.state.login) {
+      const userObj = { username: this.refs.username.value, password: this.refs.password.value }
+      console.log('login pressed');
+      let validEmail = this.validateEmail(this.refs.username.value);
+      if (validEmail) {      
+        firebaseAuth().signInWithEmailAndPassword(this.refs.username.value, this.refs.password.value)
+          .catch((error) => {
+              this.setState({error: 'Invalid username/password.', badlogin: true})
+            })
+      }
+    } else {
+      this.setState({login: true, signup: false, badLogin: false});
+      this.refs.username.value = "";
+      this.refs.password.value = "";
     }
-    //check if usename exists
-    //if exists hash and salt password and sign in 
-    this.handlePost(userObj);
-    //reset form values
-    this.refs.username.value = '';
-    this.refs.password.value = '';
+    // //grab username data from refs
+    // var username = this.refs.username.value;
+    // var password = this.refs.password.value;
+    // //create user object payload
+    // var userObj = {
+    //   username: username,
+    //   password: password,
+    // }
+    // //check if usename exists
+    // //if exists hash and salt password and sign in 
+    // this.handlePost(userObj);
+    // //reset form values
+    // this.refs.username.value = '';
+    // this.refs.password.value = '';
   }
 
   render() {
@@ -75,7 +74,6 @@ class Login extends React.Component {
             </label>
           </form>
           <br />
-          {this.state.signedIn ? <Redirect to={"/about"}/> : <br/>}
           <Link className="form-button"to="/signup">SIGNUP</Link>
           <br />
         </div>

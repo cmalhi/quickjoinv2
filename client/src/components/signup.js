@@ -1,8 +1,8 @@
 import React from 'react';
 import Login from './login';
 import axios from 'axios';
-import auth from '../auth';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import { ref, firebaseAuth } from '../auth/firebase'
 
 
 class Signup extends React.Component {
@@ -13,46 +13,38 @@ class Signup extends React.Component {
       signedIn: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePost = this.handlePost.bind(this);
   }
 
-  componentWillMount() {
-    this.setState({signedIn: auth('status')});
+  validateEmail(e) {
+    const filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+    return String(e).search (filter) != -1;
   }
 
-  handlePost(userObj) {
-    axios({
-      method: 'POST',
-      url: '/api/handlesignup',
-      data: userObj,
-    })
-    .then((res) => {
-      console.log('ran post request for submitting signup info on front end', res.data);
-      if (res.data === 'the username is already taken') {
-        this.setState({usernameTaken: true});
-      } else {
-        this.setState({signedIn: true});
-      }
-    })
+  saveUser(user) {
+    return ref.child(`users/${user.uid}/info`)
+      .set({
+        email: user.email,
+        uid: user.uid
+      })
+      .then(() => user)
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    //store username and pass
-    var username = this.refs.username.value;
-    var password = this.refs.password.value;
-    //creat user object
-    var userObj = {
-      username: username,
-      password: password,
+    if (this.state.signup) {
+      console.log('signup pressed')
+      const userObj = { username: this.refs.username.value, password: this.refs.password.value }
+      let validEmail = this.validateEmail(this.refs.username.value);
+      if (validEmail && this.refs.password.value.length){      
+        firebaseAuth().createUserWithEmailAndPassword(this.refs.username.value, this.refs.password.value)
+          .then(this.saveUser)
+            .catch(e => this.setState({error: e, badlogin: true}))
+      }
+    } else {
+      this.setState({signup: true, login: false, badLogin: false});
+      this.refs.username.value = "";
+      this.refs.password.value = "";
     }
-    //check if usename exists
-    //if exists post message to dom that username is taken
-    //if DNE then hash and salt password and sign in 
-    this.handlePost(userObj);
-    //reset form values
-    this.refs.username.value = '';
-    this.refs.password.value = '';
   }
 
   render() {
@@ -76,7 +68,6 @@ class Signup extends React.Component {
             </label>
           </form>
           <br />
-          {this.state.signedIn ? <Redirect to={"/about"}/> : <br/>}
           <Link className="form-button" to="/login">LOGIN</Link>
           <br />
         </div>
