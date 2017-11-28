@@ -195,8 +195,8 @@ body {
 
 .nav {
   padding: auto;
-  background: linear-gradient(to bottom, #70C000 0%, #80C400 100%);
-  height: 90px;
+  background-color: black;
+  height: 120px;
   width: 100%;
   margin-bottom: 20px;
 }
@@ -204,7 +204,7 @@ body {
 .nav-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   align-items: center;
   height: 90px;
   padding-left: 20px;
@@ -214,15 +214,15 @@ body {
 .nav-list {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .nav-item {
   text-decoration: none;
   font-family: 'Poiret One', Arial, sans-serif;
-  font-size: 2em;
+  font-size: 1em;
   color: white;
-  text-shadow: 1px 1px red;
+  text-shadow: 1px 1px maroon;
   padding-left: 10px;
   padding-right: 10px;
   cursor: pointer;
@@ -233,10 +233,10 @@ body {
 }
 
 .nav-title {
-  font-family: 'Playball', Arial, sans-serif;
+  font-family: 'Lobster', cursive;
   color: white;
-  font-size: 3.5em;
-  text-shadow: 1px 1px red;
+  font-size: 1.5em;
+  text-shadow: 1px 1px maroon;
 }
 
 .right-column {

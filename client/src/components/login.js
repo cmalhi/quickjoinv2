@@ -1,8 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import Signup from './signup';
-import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
-import { ref, firebaseAuth } from '../auth/firebase';
+import { BrowserRouter as Link } from 'react-router-dom';
+import { firebaseAuth } from '../auth/firebase';
 
 
 class Login extends React.Component {
@@ -23,7 +21,7 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.login) {
-      const userObj = { username: this.refs.username.value, password: this.refs.password.value }
+      // const userObj = { username: this.refs.username.value, password: this.refs.password.value }
       console.log('login pressed');
       let validEmail = this.validateEmail(this.refs.username.value);
       if (validEmail) {      

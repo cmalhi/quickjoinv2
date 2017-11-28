@@ -1,8 +1,6 @@
 import React from 'react';
-import Login from './login';
-import axios from 'axios';
-import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
-import { ref, firebaseAuth } from '../auth/firebase'
+import { BrowserRouter as Link } from 'react-router-dom';
+import { ref, firebaseAuth } from '../auth/firebase';
 
 
 class Signup extends React.Component {
@@ -31,8 +29,8 @@ class Signup extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.signup) {
-      console.log('signup pressed')
-      const userObj = { username: this.refs.username.value, password: this.refs.password.value }
+      console.log('signup pressed');
+      // const userObj = { username: this.refs.username.value, password: this.refs.password.value }
       let validEmail = this.validateEmail(this.refs.username.value);
       if (validEmail && this.refs.password.value.length){      
         firebaseAuth().createUserWithEmailAndPassword(this.refs.username.value, this.refs.password.value)

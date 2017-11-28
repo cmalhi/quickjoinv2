@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class Home extends Component {
   render () {
     return (
       <div className="home-container">
         <div className="home">
-          <div className="home-title">Welcome to Quickjoin</div>
+          <div className="home-title">Welcome to QuickJoin</div>
           <br/>
           <div className="home-subtitle">Make New Friends!</div>
           <div className="home-list-item">Tell us all the games you are currently playing</div>

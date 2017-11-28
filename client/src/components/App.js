@@ -5,7 +5,6 @@ import Login from './login';
 import Signup from './signup';
 import Match from './match';
 import Home from './home';
-import axios from 'axios';
 
 //Auth route
 function PrivateRoute ({component: Component, authed, ...rest}) {
