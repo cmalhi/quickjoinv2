@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom';
 import { firebaseAuth } from '../auth/firebase';
+import MyGames from './mygames';
 import Login from './login';
 import Signup from './signup';
 import Match from './match';
@@ -24,7 +25,7 @@ function PublicRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === false
         ? <Component {...props} />
-        : <Redirect to='/match' />}
+        : <Redirect to='/mygames' />}
     />
   )
 }
@@ -67,7 +68,8 @@ export default class App extends Component {
               <div className="nav-title">QuickJoin</div>
               <div className="nav-list">
                 <Link to="/" className="nav-item">Home</Link>
-                <Link to="/match" className="nav-item">Your Matches</Link>
+                <Link to="/mygames" className="nav-item">My Games</Link>
+                <Link to="/match" className="nav-item">Matches</Link>
                 {this.state.authed
                   ? <div
                       style={{border: 'none', background: 'transparent'}}
@@ -78,7 +80,8 @@ export default class App extends Component {
                   : <div>
                       <Link to="/login" className="nav-item">Login</Link>
                       <Link to="/signup" className="nav-item">Signup</Link>
-                    </div>}
+                    </div>
+                }
               </div>
             </div>
           </nav>
@@ -88,6 +91,7 @@ export default class App extends Component {
                 <Route path='/' exact component={Home} />
                 <PublicRoute authed={this.state.authed} path='/login' component={Login} />
                 <PublicRoute authed={this.state.authed} path='/signup' component={Signup} />
+                <PrivateRoute authed={this.state.authed} path='/mygames' component={MyGames} />
                 <PrivateRoute authed={this.state.authed} path='/match' component={Match} />
                 <Route render={() => <div>This route does not exist</div>} /> 
               </Switch>
