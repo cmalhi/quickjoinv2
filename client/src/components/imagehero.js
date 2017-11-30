@@ -2,6 +2,7 @@ import React from 'react';
 import { Background, Parallax } from 'react-parallax';
 import destinyBackground from './images/wallpaper.jpg';
 import arrow from './images/arrow.png';
+import { Link } from 'react-router-dom';
 
 const ImageHero = () => (
   <div style={styles.container}>
@@ -16,7 +17,8 @@ const ImageHero = () => (
         </ul>
       </div>
       <div style={styles.subtitle}>Go on an eipc online adventure!</div>
-      <img src={arrow} style={styles.arrow} />
+      <Link to="/match" style={styles.find}>FIND PLAYERS</Link>
+
     </div>
   </div>
 );
@@ -26,22 +28,19 @@ const styles = {
   container: {
    fontFamily: 'Poiret One',
    textAlign: 'left',
-   width: '100vmax',
-   height: '100vh',
+   width: '100%',
+   height: '1080px',
    position: 'relative',
+   overflow: 'hidden',
   },
   content: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     position: 'absolute',
     zIndex: 2,
     height: '100%',
+    width: '100%',
   },
   image: {
-    width: '100%',
-    minWidth: '800px',
-    height: 'auto',
+    minWidth: '100%',
     pointerEvents: 'none',
     userSelect: 'none',
     margin: 'auto',
@@ -52,7 +51,8 @@ const styles = {
     fontSize: '5.5em',
     color: 'white',
     paddingLeft: '30px',
-    paddingTop: '70px',
+    paddingTop: '10%',
+    position: 'fixed',
   },
   listItem: {
     marginBottom: '13px',
@@ -65,18 +65,35 @@ const styles = {
   },
   listContainer: {
     color: 'white',
-    padding: '30px',
-    alignSelf: 'flex-end',
+    position: 'absolute',
+    paddingTop: '30px',
+    paddingLeft: '30px',
+    paddingRight: '30px',
+    bottom: 70,
   },
-  arrow: {
-    width: '300px',
-    height: 'auto',
-    alignSelf: 'flex-end',
+  find: {
+    whiteSpace: 'nowrap',
     position: 'absolute',
     zIndex: 2,
+    right: '30px',
+    bottom: 0,
+    color: 'white',
+    fontSize: '2em',
+    border: '1px solid white',
+    background: 'rgb(0,0,0,0.5)',
+    padding: '20px',
+    marginBottom: '30px',
+    textDecoration: 'none',
+    cursor: 'hand',
   },
   subtitle: {
-    fontSize: '2em',
+    position: 'absolute',
+    bottom: 0,
+    fontSize: '2.5em',
     color: 'white',
+    paddingLeft: '30px',
+    paddingRight: '30px',
+    paddingBottom: '30px',
+    paddingTop: '5px',
   }
 }

@@ -149,7 +149,8 @@ body {
   background-color: black;
   height: 100px;
   width: 100%;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  z-index: 3; }
 
 .nav-container {
   display: flex;
