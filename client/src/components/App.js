@@ -5,7 +5,7 @@ import MyGames from './mygames';
 import Login from './login';
 import Signup from './signup';
 import Match from './match';
-import Home from './home';
+import Home from './imagehero';
 
 //Auth route
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -62,7 +62,7 @@ export default class App extends Component {
   render() {
     return this.state.loading === true ? <div className="title">Loading</div> : (
       <BrowserRouter>
-        <div>
+        <div style={styles.container}>
           <nav className="nav">
             <div className="nav-container">
               <div className="nav-title">QuickJoin</div>
@@ -100,5 +100,11 @@ export default class App extends Component {
         </div>
       </BrowserRouter>
     );
+  }
+}
+
+const styles = {
+  container: {
+    height: '100vh'
   }
 }
