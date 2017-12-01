@@ -17,7 +17,7 @@ const ImageHero = () => (
         </ul>
       </div>
       <div style={styles.subtitle}>Go on an eipc online adventure!</div>
-      <Link to="/match" style={styles.find}>FIND PLAYERS</Link>
+      <Link to="/mygames" style={styles.find}>FIND PLAYERS</Link>
 
     </div>
   </div>
@@ -80,7 +80,7 @@ const styles = {
     color: 'white',
     fontSize: '2em',
     border: '1px solid white',
-    background: 'rgb(0,0,0,0.5)',
+    background: 'rgba(240,32,0,0.85)',
     padding: '20px',
     marginBottom: '30px',
     textDecoration: 'none',
