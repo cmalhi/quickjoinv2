@@ -4,7 +4,8 @@
 
 ## Usage
 
-- A live demo of this app will be deployed to heroku within the next -3 days! (as of 10/31/2017)
+- A live demo of this app will be deployed to heroku very soon.
+- Currently refactoring authentication and database to run on Firebase.
 
 ## Requirements
 
