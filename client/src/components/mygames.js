@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import firebase from 'firebase/app';
+import { config, app } from '../auth/firebase';
 // import Match from './Match.jsx';
 
 class Home extends React.Component {
@@ -17,11 +19,18 @@ class Home extends React.Component {
       search: false,
       submit: false,
     };
+    this.db = app.database().ref.child('games');
     this.handlePost = this.handlePost.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChoice = this.handleChoice.bind(this);
     this.handleSearchCall = this.handleSearchCall.bind(this);
+  }
+
+  componentWillMount() {
+    this.db.on('child_added', snap => {
+      console.log('Snapshot id,', snap.key, 'Value: ' snap.val());
+    })
   }
 
   handlePost(gamePostObj) {
