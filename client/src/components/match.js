@@ -1,8 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import MatchEntry from './matchentry';
-import firebase from 'firebase';
-import { config, app } from '../auth/firebase';
+import { app } from '../auth/firebase';
 
 class Match extends React.Component {
   constructor(props) {

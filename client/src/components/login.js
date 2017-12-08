@@ -8,33 +8,16 @@ class Login extends React.Component {
     super(props);
     this.state = {
       error: '',
-      badLogin: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  validateEmail(e) {
-    const filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
-    return String(e).search (filter) != -1;
-  }
-
   handleSubmit(e) {
-    e.preventDefault();
-    if (this.state.login) {
-      // const userObj = { username: this.refs.username.value, password: this.refs.password.value }
-      console.log('login pressed');
-      let validEmail = this.validateEmail(this.refs.username.value);
-      if (validEmail) {      
-        firebaseAuth().signInWithEmailAndPassword(this.refs.username.value, this.refs.password.value)
-          .catch((error) => {
-              this.setState({error: 'Invalid username/password.', badlogin: true})
-            })
-      }
-    } else {
-      this.setState({login: true, signup: false, badLogin: false});
-      this.refs.username.value = "";
-      this.refs.password.value = "";
-    }
+    e.preventDefault();     
+    firebaseAuth().signInWithEmailAndPassword(this.refs.username.value, this.refs.password.value)
+      .catch((e) => {
+          this.setState({error: e}, ()=>{console.log('Firebase Authentication Error: ', this.state.error)})
+        })
   }
 
   render() {

@@ -33,7 +33,7 @@ The client and server are running on 2 different hosts. The client uses proxy fo
 
 ## Screenshot
 
-![](images/quickjoin.png?raw=true)
+![](images/screenshot.png?raw=true)
 
 ## Technology Stack
 

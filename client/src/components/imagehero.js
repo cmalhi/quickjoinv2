@@ -1,7 +1,5 @@
 import React from 'react';
-import { Background, Parallax } from 'react-parallax';
 import destinyBackground from './images/wallpaper.jpg';
-import arrow from './images/arrow.png';
 import { Link } from 'react-router-dom';
 
 const ImageHero = () => (

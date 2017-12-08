@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import firebase from 'firebase';
 import { ref, firebaseAuth } from '../auth/firebase';
 
 
@@ -12,36 +13,17 @@ class Signup extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  validateEmail(e) {
-    const filter = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
-    return String(e).search (filter) != -1;
-  }
-
   saveUser(user) {
     return ref.child(`users/${user.uid}/info`)
-      .set({
-        email: user.email,
-        uid: user.uid
-      })
-      .then(() => user)
+      .set({ email: user.email, uid: user.uid })
+        .then(() => user)
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    if (this.state.signup) {
-      console.log('signup pressed');
-      // const userObj = { username: this.refs.username.value, password: this.refs.password.value }
-      let validEmail = this.validateEmail(this.refs.username.value);
-      if (validEmail && this.refs.password.value.length){      
-        firebaseAuth().createUserWithEmailAndPassword(this.refs.username.value, this.refs.password.value)
-          .then(this.saveUser)
-            .catch(e => this.setState({error: e, badlogin: true}))
-      }
-    } else {
-      this.setState({signup: true, login: false, badLogin: false});
-      this.refs.username.value = "";
-      this.refs.password.value = "";
-    }
+    e.preventDefault();    
+    firebase.auth().createUserWithEmailAndPassword(this.refs.username.value, this.refs.password.value)
+      .then(this.saveUser)
+        .catch(e => this.setState({error: e}, ()=>{console.log('Firebase Authentication Error: ', this.state.error)}))
   }
 
   render() {
@@ -50,7 +32,7 @@ class Signup extends React.Component {
       <div className="form-container">
         <div className="form">
           <div className="form-title">SIGN UP FOR QUICKJOIN</div>
-          <form onSubmit={this.handleSubmit} className="login-form">        
+          <form className="login-form" onSubmit={this.handleSubmit}>        
             <label>
               <br />
               <div>Choose username wisely</div>

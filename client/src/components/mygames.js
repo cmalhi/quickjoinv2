@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import { BrowserRouter as Redirect } from 'react-router-dom';
 import firebase from 'firebase';
-import { config, app } from '../auth/firebase';
+import { app } from '../auth/firebase';
 
 class Home extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class Home extends React.Component {
 
   handlePost(myGame) {
     this.db.push().set({game: myGame});
-    this.setState({submit: true})
+    this.setState({submit: true});
   }
 
   handleSubmit(e) {
@@ -76,17 +76,17 @@ class Home extends React.Component {
       const data = res.data;
       const searchData = [];
       var url;
-      for (let i = 0; i < res.data.length; i++) {
-        if (res.data[i].cover && res.data[i].name) {  
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].cover && data[i].name) {  
           // if https: is missing in the url, this will fix it 
-          if (res.data[i].cover.url.includes('https:')){ 
-            url = res.data[i].cover.url;
+          if (data[i].cover.url.includes('https:')){ 
+            url = data[i].cover.url;
           } else {
-            url = 'https:' + res.data[i].cover.url;
+            url = 'https:' + data[i].cover.url;
           }    
           searchData.push({
             url: url,
-            name: res.data[i].name,
+            name: data[i].name,
           })
         }
       }
