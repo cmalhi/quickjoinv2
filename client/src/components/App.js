@@ -68,7 +68,7 @@ export default class App extends Component {
               <div className="nav-title">QuickJoin</div>
               <div className="nav-list">
                 <Link to="/" className="nav-item">Home</Link>
-                <Link to="/mygames" className="nav-item">My Games</Link>
+                <Link to="/mygames" className="nav-item">Dashboard</Link>
                 <Link to="/match" className="nav-item">Matches</Link>
                 {this.state.authed
                   ? <div

@@ -1,13 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
-import firebase from 'firebase/app';
+import firebase from 'firebase';
 import { config, app } from '../auth/firebase';
-// import Match from './Match.jsx';
 
 class Home extends React.Component {
   constructor(props) {
-    super(props);
+    super(props); 
     this.state = {
       posts: [],
       games: null,
@@ -19,7 +18,7 @@ class Home extends React.Component {
       search: false,
       submit: false,
     };
-    this.db = app.database().ref.child('games');
+    this.db = app.database().ref().child('games');
     this.handlePost = this.handlePost.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -29,98 +28,82 @@ class Home extends React.Component {
 
   componentWillMount() {
     this.db.on('child_added', snap => {
-      console.log('Snapshot id,', snap.key, 'Value: ' snap.val());
+      console.log('Snapshot id,', snap.key, 'Value: ', snap.val());
     })
   }
 
-  handlePost(gamePostObj) {
-    axios({
-      method: 'POST',
-      url: '/api/handlegamepost',
-      data: gamePostObj
-    })
-    .then((res) => {
-      //this.handleMatchGet(gamePostObj);
-      console.log('submitting game form post');
-    })
-    console.log('attempted to post: ', gamePostObj)
-    this.setState({submit: true});
+  handlePost(myGame) {
+    this.db.push().set({game: myGame});
+    this.setState({submit: true})
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log('THE GAME YOU WANT TO PLAY IS', this.state.chosenGame, this.state.selected)
-    var gamePostObj = {};
+    const myGame = {};
+    const userId = firebase.auth().currentUser.uid;     
     if (this.state.selected) {    
-      gamePostObj.name = this.state.chosenGame;
-      gamePostObj.system = this.state.chosenSystem;
-      gamePostObj.message = this.refs.message.value;
-      gamePostObj.gamertag = this.refs.gamertag.value;
-
-      if (this.refs.system.value === 'xbox one') {
-        alert('Xbox is garbage fam')
-      }
-      console.log('gamepostobj', gamePostObj)
-      this.handlePost(gamePostObj);
-
-      //reset all the input fields
+      myGame.name = this.state.chosenGame;
+      myGame.system = this.state.chosenSystem;
+      myGame.message = this.refs.message.value;
+      myGame.gamertag = this.refs.gamertag.value;
+      myGame.userID = userId;
+      this.handlePost(myGame);
+      //reset the input fields
       this.refs.message.value = ''; 
       this.refs.gamertag.value = '';
-      //after submit you should be ridirected to the Match page
-    } else {
-      console.log('you have to select a game first');
     }
   }
 
   handleSearch(e) {
     e.preventDefault();
-    var gameSearchObj = {};
-    gameSearchObj.name = this.refs.name.value;
-    gameSearchObj.system = this.refs.system.value;
+    const gameToSearch = {};
+    gameToSearch.name = this.refs.name.value;
+    gameToSearch.system = this.refs.system.value;
     this.setState({chosenSystem: this.refs.system.value});
-    this.handleSearchCall(gameSearchObj)
+    this.handleSearchCall(gameToSearch)
     this.setState({search: true})
     this.refs.name.value = '';
     this.refs.system.value = '';
   }
 
-  handleSearchCall(gameSearchObj) {
+  handleSearchCall(gameToSearch) {
     axios({
       method: 'POST',
       url: '/api/getgames',
-      data: gameSearchObj
+      data: gameToSearch
     })
     .then((res) => {
-      //this.handleMatchGet(gameSearchObj);
-      console.log('ran post request for submitting post on front end');
-      var data = res.data;
-      var searchData = [];
-      for (var i = 0; i < res.data.length; i++) {
-        if (res.data[i].cover && res.data[i].name) {        
-          var url = 'https:' + res.data[i].cover.url;
+      const data = res.data;
+      const searchData = [];
+      var url;
+      for (let i = 0; i < res.data.length; i++) {
+        if (res.data[i].cover && res.data[i].name) {  
+          // if https: is missing in the url, this will fix it 
+          if (res.data[i].cover.url.includes('https:')){ 
+            url = res.data[i].cover.url;
+          } else {
+            url = 'https:' + res.data[i].cover.url;
+          }    
           searchData.push({
             url: url,
             name: res.data[i].name,
           })
         }
       }
-      console.log(searchData, "DIS THE DATA=======")
       this.setState({searchData: searchData})
     })
-    console.log('attempted to post: ', gameSearchObj)
   }
 
   handleChoice(name) {
-    this.setState({chosenGame: name, selected: true})
+    this.setState({chosenGame: name, selected: true});
   }
 
   // <input className="form-input" id= "newGameSystem" type="text" ref="system" />
   render() {
     const images = this.state.searchData.map((game, i) => {
-      console.log(game,i)
       return (
-        <div onClick={this.handleChoice.bind(this, game.name)} className="game-search">
-          <img className="game-search-image" src={game.url} key={i} />
+        <div onClick={this.handleChoice.bind(this, game.name)} key={i + "_id"} className="game-search">
+          <img className="game-search-image" src={game.url} />
           <div>{game.name}</div>
         </div>
       )

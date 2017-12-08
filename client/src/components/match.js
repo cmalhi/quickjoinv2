@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import MatchEntry from './matchentry';
+import firebase from 'firebase';
+import { config, app } from '../auth/firebase';
 
 class Match extends React.Component {
   constructor(props) {
@@ -8,30 +10,18 @@ class Match extends React.Component {
     this.state = {
       matches: []
     }
-    this.handleMatchesResult = this.handleMatchesResult.bind(this);
-    this.handleMatches = this.handleMatches.bind(this);
+    this.db = app.database().ref().child('games');
   }
 
   componentWillMount() {
-    this.handleMatches();
-  }
-
-  handleMatches() {
-    axios({
-      method: 'GET',
-      url: '/api/handlematch',
+    this.db.on('value', snap => {
+      const extractedGames = [];
+      const games = snap.val();
+      for(let key in games){
+        extractedGames.push(games[key].game);
+      }
+      this.setState({matches: extractedGames}, ()=>{console.log(this.state.matches)})
     })
-    .then((res) => {
-      console.log('ran get request for getting match on front end', res.data);
-      this.setState({matches: res.data})
-      console.log('Match: state: matches ', this.state.matches)
-    })
-  }
-
-  //pass in the match prop if match exists, 
-  //otherwise send an alert that there is no match
-  handleMatchesResult() {
-    return <div>HANDLE RESULT MATCHES</div>
   }
 
   render() {
@@ -43,7 +33,7 @@ class Match extends React.Component {
           {this.state.matches.map((match, key) => {
             return <MatchEntry match={match} key={key} />
           })}
-        </div >
+        </div>
       </div>
       )
   }
