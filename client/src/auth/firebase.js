@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 
 //firebase credentials
-var config = {
+export const config = {
   apiKey: "AIzaSyDsZYc8qOBcqsZLM6Tt0ZlMvwW5eLfjqX4",
   authDomain: "quickjoin-fb5fc.firebaseapp.com",
   databaseURL: "https://quickjoin-fb5fc.firebaseio.com",
