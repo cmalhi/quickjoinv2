@@ -6,7 +6,7 @@ class Match extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matches: []
+      matches: [],
     }
     this.db = app.database().ref().child('games');
   }
@@ -18,22 +18,19 @@ class Match extends React.Component {
       for(let key in games){
         extractedGames.push(games[key].game);
       }
-      this.setState({matches: extractedGames}, ()=>{console.log(this.state.matches)})
+      this.setState({matches: extractedGames}, ()=>{console.log(this.state.matches)});
     })
   }
 
   render() {
     return (
-      <div className="form-container">
-        <div>
-          <div className="match-count">{this.state.matches.length} hot singles in your area</div>
-          <br />
-          {this.state.matches.map((match, key) => {
-            return <MatchEntry match={match} key={key} />
-          })}
-        </div>
+      <div className="match">
+        <br />
+        {this.state.matches.map((match, key) => {
+          return <MatchEntry match={match} key={key} />
+        })}
       </div>
-      )
+    );
   }
 }
 
